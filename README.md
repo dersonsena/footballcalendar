@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Yii 2 Basic Project Template
 ============================
 
@@ -192,6 +191,3 @@ composer exec codecept run functional,unit -- --coverage-html --coverage-xml
 
 You can see code coverage output under the `tests/_output` directory.
 =======
-# futballcalendar
-Sistema de Gestão de Times de Futebol/Futsal
->>>>>>> 3e4604522dbd639dca64c2e67d7539e06545ccbb
