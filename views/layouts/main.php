@@ -8,6 +8,7 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\StringHelper;
+use yii\helpers\Url;
 use yii\web\ErrorAction;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
@@ -25,6 +26,7 @@ if (!$user->isGuest) {
     array_pop($navItems);
 
     $navItems = ArrayHelper::merge($navItems, [
+        ['label' => "<i class='fa fa-calendar'></i> Jogos", 'url' => ['/matches'], 'encode' => false],
         ['label' => 'Cadastros', 'items' => [
             ['label' => "<i class='fa fa-male'></i> Atletas", 'url' => ['/entries/players'], 'encode' => false],
             ['label' => "<i class='fa fa-flag-checkered'></i> Competições", 'url' => ['/entries/competitions'], 'encode' => false],
@@ -53,6 +55,12 @@ if ($this->context->action instanceof ErrorAction)
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+
+    <script type="text/javascript">
+        var baseUrl = '<?= Url::base(true) ?>';
+        var appName = '<?= Yii::$app->name ?>';
+    </script>
+
     <?php $this->head() ?>
 </head>
 <body>
@@ -75,6 +83,8 @@ if ($this->context->action instanceof ErrorAction)
 
     <div class="container">
         <?= $this->render('//partials/messages.php') ?>
+
+        <h2><?= $this->context->controllerDescription ?></h2>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>

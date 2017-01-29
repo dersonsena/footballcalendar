@@ -102,6 +102,11 @@ class Setting extends ModelBase
         return $this->type_id === Flag::SETTING_TYPE_BOOL;
     }
 
+    public static function getSettingByAbbreviation(string $abbreviation)
+    {
+        return static::findOne(['abbreviation' => $abbreviation]);
+    }
+
     public static function getSettingsRows()
     {
         $settings = [];

@@ -133,3 +133,7 @@ div.required > label:after, label.required:after {
 table.detail-view tr th {
     width: 260px;
 }
+
+.table > tbody > tr > td, .table > tbody > tr > th {
+    vertical-align: middle !important;
+}

@@ -19,9 +19,11 @@ class m170128_185004_create_matches extends Migration
             'type_id' => $this->integer()->notNull(),
             'decision_id' => $this->integer(),
             'competition_id' => $this->integer(),
+            'description' => $this->string(60),
             'date' => $this->date()->notNull(),
             'score_owner' => $this->integer(),
             'score_guest' => $this->integer(),
+            'observations' => $this->text(),
             'created_at' => $this->dateTime(),
             'updated_at' => $this->dateTime(),
             'created_by' => $this->integer()

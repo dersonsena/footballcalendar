@@ -13,6 +13,7 @@ $config = [
         '@entries' => '@app/modules/entries',
         '@user' => '@app/modules/users',
         '@appModule' => '@app/modules/app',
+        '@matches' => '@app/modules/matches',
     ],
     'modules' => [
         'user' => [
@@ -24,10 +25,17 @@ $config = [
         'app' => [
             'class' => 'app\modules\app\AppModule',
         ],
+        'matches' => [
+            'class' => 'app\modules\matches\MatchesModule',
+        ],
     ],
     'components' => [
         'request' => [
             'cookieValidationKey' => 'n9sw_66pjMSALcz6uvgp2nEiBM18upwc',
+        ],
+        'assetManager' => [
+            'class' => 'yii\web\AssetManager',
+            'forceCopy' => YII_DEBUG,
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',

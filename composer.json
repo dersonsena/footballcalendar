@@ -22,8 +22,8 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "kartik-v/yii2-widget-growl": "*",
         "kartik-v/yii2-widget-activeform": "^1.4",
-        "bower-asset/components-font-awesome": "*",
-        "bower-asset/bootstrap-datepicker" : "@dev"
+        "kartik-v/yii2-widget-datepicker": "@dev",
+        "bower-asset/components-font-awesome": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

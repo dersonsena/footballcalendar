@@ -21,6 +21,13 @@ class Flag extends ModelBase
     const SETTING_TYPE_INT = 4;
     const SETTING_TYPE_DECIMAL = 5;
     const SETTING_TYPE_BOOL = 6;
+    const MATCH_DECISION_VICTORY = 7;
+    const MATCH_DECISION_DEFEAT = 8;
+    const MATCH_DECISION_DRAW = 9;
+    const MATCH_STATUS_SCHEDULED = 10;
+    const MATCH_STATUS_FINALIZED = 11;
+    const MATCH_TYPE_FRIENDLY = 12;
+    const MATCH_TYPE_COMPETITION = 13;
 
     /**
      * @inheritdoc

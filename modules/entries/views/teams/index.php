@@ -4,6 +4,7 @@
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 use app\components\controllers\ControllerBase;
+use app\widgets\IndexButtons;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 
@@ -14,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->context->controllerDescription;
     <div class="box-body">
 
         <section class="well well-sm">
-            <?= $this->render('@app/views/partials/crud/index-default-actions') ?>
+            <?= IndexButtons::widget() ?>
         </section>
         
         <?php Pjax::begin() ?>

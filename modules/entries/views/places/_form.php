@@ -1,6 +1,7 @@
 <?php
 /* @var yii\web\View $this */
 /* @var \app\modules\entries\models\Place $model */
+use app\widgets\FormButtons;
 use yii\bootstrap\ActiveForm;
 ?>
 
@@ -9,7 +10,7 @@ use yii\bootstrap\ActiveForm;
     <?= $form->field($model, 'id', ['template' => '{input}'])->hiddenInput() ?>
 
     <div class="form-actions">
-        <?= $this->render('@app/views/partials/crud/form-default-buttons') ?>
+        <?= FormButtons::widget() ?>
     </div>
 
     <div class="row">

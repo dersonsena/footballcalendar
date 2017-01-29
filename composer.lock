@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ca076277f85cf363ebfdc8a45c92a078",
-    "content-hash": "6c3217fe98f2003c559a02c9cbe77150",
+    "hash": "2f367bb835b5bce891e39b7ba4fa99fe",
+    "content-hash": "3f715962a1651ca5929b96a9ee74cc9a",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -55,36 +55,6 @@
                 "responsive",
                 "web"
             ]
-        },
-        {
-            "name": "bower-asset/bootstrap-datepicker",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/uxsolutions/bootstrap-datepicker.git",
-                "reference": "f0be85cdd59cf39ff146f501cd471fb26956db38"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/uxsolutions/bootstrap-datepicker/zipball/f0be85cdd59cf39ff146f501cd471fb26956db38",
-                "reference": "f0be85cdd59cf39ff146f501cd471fb26956db38",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/jquery": ">=1.7.1,<4.0.0"
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": [
-                    "dist/css/bootstrap-datepicker3.css",
-                    "dist/js/bootstrap-datepicker.js"
-                ],
-                "bower-asset-ignore": []
-            },
-            "license": [
-                "Apache-2.0"
-            ],
-            "time": "2017-01-26 19:51:54"
         },
         {
             "name": "bower-asset/components-font-awesome",
@@ -465,6 +435,60 @@
                 "yii2"
             ],
             "time": "2016-04-27 18:38:05"
+        },
+        {
+            "name": "kartik-v/yii2-widget-datepicker",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-widget-datepicker.git",
+                "reference": "92e04c6a9ff90c4290db7566f68af429f2d641d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-datepicker/zipball/92e04c6a9ff90c4290db7566f68af429f2d641d5",
+                "reference": "92e04c6a9ff90c4290db7566f68af429f2d641d5",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/yii2-krajee-base": "~1.7"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "kartik\\date\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "Enhanced Yii2 wrapper for the bootstrap datepicker plugin (sub repo split from yii2-widgets).",
+            "homepage": "https://github.com/kartik-v/yii2-widget-datepicker",
+            "keywords": [
+                "date",
+                "extension",
+                "form",
+                "jquery",
+                "picker",
+                "plugin",
+                "select2",
+                "widget",
+                "yii2"
+            ],
+            "time": "2016-11-11 15:42:04"
         },
         {
             "name": "kartik-v/yii2-widget-growl",
@@ -3218,7 +3242,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "bower-asset/bootstrap-datepicker": 20
+        "kartik-v/yii2-widget-datepicker": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

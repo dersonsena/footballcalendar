@@ -16,5 +16,6 @@ class m170128_190520_insert_matches_flags extends Migration
 
     public function safeDown()
     {
+        $this->delete('{{%flags}}', 'namespace IN ("MATCH_STATUS", "MATCH_TYPE")');
     }
 }
