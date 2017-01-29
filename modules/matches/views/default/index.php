@@ -25,7 +25,8 @@ $this->params['breadcrumbs'][] = $this->context->controllerDescription;
     'columns' => [
         [
             'attribute' => 'date',
-            'headerOptions' => ['style' => 'width: 150px', 'class' => 'text-center'],
+            'contentOptions' => ['class' => 'text-center'],
+            'headerOptions' => ['style' => 'width: 120px', 'class' => 'text-center'],
         ],
         [
             'attribute' => 'description',
@@ -35,22 +36,32 @@ $this->params['breadcrumbs'][] = $this->context->controllerDescription;
             'attribute' => 'type_id',
             'headerOptions' => ['class' => 'text-center', 'style' => 'width: 130px'],
             'contentOptions' => ['class' => 'text-center'],
-            'filter' => Flag::getFlagsDownDownOptions('MATCH_TYPE'),
+            'filter' => Match::getDecisionList(),
             'value' => 'type.description'
         ],
         [
             'attribute' => 'status_id',
-            'headerOptions' => ['class' => 'text-center', 'style' => 'width: 130px'],
+            'headerOptions' => ['class' => 'text-center', 'style' => 'width: 105px'],
             'contentOptions' => ['class' => 'text-center'],
-            'filter' => Flag::getFlagsDownDownOptions('MATCH_STATUS'),
-            'value' => 'status.description'
+            'format' => 'raw',
+            'filter' => Match::getStatusList(),
+            'value' => function(Match $model, $key, $index, DataColumn $dataColumn) {
+                return $model->getStatusLabel();
+            }
         ],
         [
             'attribute' => 'decision_id',
-            'headerOptions' => ['class' => 'text-center', 'style' => 'width: 130px'],
+            'headerOptions' => ['class' => 'text-center', 'style' => 'width: 95px'],
             'contentOptions' => ['class' => 'text-center'],
-            'filter' => Flag::getFlagsDownDownOptions('MATCH_DECISION'),
-            'value' => 'decision.description'
+            'format' => 'raw',
+            'filter' => Match::getDecisionList(),
+            'value' => function(Match $model, $key, $index, DataColumn $dataColumn) {
+
+                if (empty($model->decision_id))
+                    return '';
+
+                return $model->getDecisionLabel();
+            }
         ],
         ['class' => 'app\components\ActionGridColumn'],
     ],

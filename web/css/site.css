@@ -137,3 +137,7 @@ table.detail-view tr th {
 .table > tbody > tr > td, .table > tbody > tr > th {
     vertical-align: middle !important;
 }
+
+span.label {
+    font-size: 80%;
+}

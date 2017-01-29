@@ -49,9 +49,14 @@ class MatchSearch extends Match
         if (!$this->validate())
             return $dataProvider;
 
-        $query->andFilterWhere(['id' => $this->id]);
-        $query->andFilterWhere(['status_id' => $this->status_id]);
+        $query->andFilterWhere([
+            'status_id' => $this->status_id,
+            'decision_id' => $this->decision_id,
+            'type_id' => $this->type_id
+        ]);
+
         $query->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere(['like', 'date', Yii::$app->formatter->asDateUS($this->date)]);
 
         return $dataProvider;
     }
