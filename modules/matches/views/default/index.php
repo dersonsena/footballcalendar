@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->context->controllerDescription;
             'attribute' => 'type_id',
             'headerOptions' => ['class' => 'text-center', 'style' => 'width: 130px'],
             'contentOptions' => ['class' => 'text-center'],
-            'filter' => Match::getDecisionList(),
+            'filter' => Match::getTypeList(),
             'value' => 'type.description'
         ],
         [

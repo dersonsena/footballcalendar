@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\components\controllers\ControllerBase;
+use app\modules\matches\models\Match;
 use app\modules\user\forms\LoginForm;
 use Yii;
 
@@ -15,7 +16,13 @@ class SiteController extends ControllerBase
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $this->controllerDescription = 'Estatísticas';
+
+        return $this->render('index', [
+            'artillery' => Match::getArtillery(),
+            'goalsBalance' => Match::getGoalsBalance(),
+            'lastMatches' => Match::getLastMatches()
+        ]);
     }
 
     /**

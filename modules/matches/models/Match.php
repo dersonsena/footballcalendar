@@ -7,6 +7,7 @@ use app\models\Flag;
 use app\models\Setting;
 use app\modules\entries\models\Competition;
 use app\modules\entries\models\Place;
+use app\modules\entries\models\Player;
 use app\modules\entries\models\Team;
 use Exception;
 use OutOfBoundsException;
@@ -186,6 +187,21 @@ class Match extends ModelBase
         return $this->status_id === Flag::MATCH_TYPE_COMPETITION;
     }
 
+    public function isVictory()
+    {
+        return $this->decision_id === Flag::MATCH_DECISION_VICTORY;
+    }
+
+    public function isDefeat()
+    {
+        return $this->decision_id === Flag::MATCH_DECISION_DEFEAT;
+    }
+
+    public function isDraw()
+    {
+        return $this->decision_id === Flag::MATCH_DECISION_DRAW;
+    }
+
     /**
      * @param MatchDatasheet[] $dataSheet
      * @throws Exception
@@ -277,7 +293,7 @@ class Match extends ModelBase
         return $list[$decisionId];
     }
 
-    public function getDecisionLabel()
+    public function getDecisionLabel($shortLabel = false)
     {
         $selectedStatus = self::getDecisionList($this->decision_id);
         $params = [];
@@ -285,17 +301,77 @@ class Match extends ModelBase
         switch ($this->decision_id) {
             case Flag::MATCH_DECISION_DRAW :
                 $params = ['cssClass' => 'label-warning', 'iconClass' => 'fa fa-calendar'];
+                $selectedStatus = (!$shortLabel ? $selectedStatus : 'E');
                 break;
             case Flag::MATCH_DECISION_DEFEAT :
                 $params = ['cssClass' => 'label-danger', 'iconClass' => 'fa fa-minus-circle'];
+                $selectedStatus = (!$shortLabel ? $selectedStatus : 'D');
                 break;
             case Flag::MATCH_DECISION_VICTORY :
                 $params = ['cssClass' => 'label-success', 'iconClass' => 'fa fa-check-circle'];
+                $selectedStatus = (!$shortLabel ? $selectedStatus : 'V');
                 break;
         }
 
         return '<span class="label ' . $params['cssClass'] . '">
             <i class="' . $params['iconClass'] . '"></i> ' . $selectedStatus .
             '</span>';
+    }
+
+    public static function getTypeList($typeId = null)
+    {
+        $list = [
+            Flag::MATCH_TYPE_FRIENDLY => 'Amistoso',
+            Flag::MATCH_TYPE_COMPETITION => 'Competição',
+        ];
+
+        if (is_null($typeId))
+            return $list;
+
+        if (!array_key_exists($typeId, $list)) {
+            throw new OutOfBoundsException('Não existe o tipo com ID ' . $typeId);
+        }
+
+        return $list[$typeId];
+    }
+
+    public static function getArtillery()
+    {
+        $sql = "
+            SELECT p.id, p.name, (
+                SELECT SUM(goals)
+                FROM ". MatchDatasheet::tableName() ." AS md
+                WHERE md.player_id = p.id
+                GROUP BY md.player_id
+            ) AS goals
+            FROM ". Player::tableName() ." AS p
+            WHERE p.status = 1
+            ORDER BY goals DESC, p.name ASC
+        ";
+
+        return Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    public static function getGoalsBalance()
+    {
+        $sql = "
+            SELECT 
+                AVG(m.score_owner) AS avg_owner, AVG(m.score_guest) AS avg_guest,
+                SUM(m.score_owner) AS sum_owner, SUM(m.score_guest) AS sum_guest,
+                (SUM(m.score_owner) - SUM(m.score_guest)) AS balance
+            FROM ". Match::tableName() ." AS m
+        ";
+
+        return Yii::$app->db->createCommand($sql)->queryOne();
+    }
+
+    public static function getLastMatches(int $limit = 10)
+    {
+        return static::find()
+            ->select(['id', 'description', 'date', 'decision_id'])
+            ->where(['status_id' => Flag::MATCH_STATUS_FINALIZED])
+            ->orderBy('date DESC, created_at DESC')
+            ->limit($limit)
+            ->all();
     }
 }
