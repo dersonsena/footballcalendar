@@ -169,37 +169,37 @@ class Match extends ModelBase
 
     public function isSchedule()
     {
-        return $this->status_id === Flag::MATCH_STATUS_SCHEDULED;
+        return (int)$this->status_id === Flag::MATCH_STATUS_SCHEDULED;
     }
 
     public function isFinalized()
     {
-        return $this->status_id === Flag::MATCH_STATUS_FINALIZED;
+        return (int)$this->status_id === Flag::MATCH_STATUS_FINALIZED;
     }
 
     public function isFriendly()
     {
-        return $this->status_id === Flag::MATCH_TYPE_FRIENDLY;
+        return (int)$this->type_id === Flag::MATCH_TYPE_FRIENDLY;
     }
 
     public function isCompetition()
     {
-        return $this->status_id === Flag::MATCH_TYPE_COMPETITION;
+        return (int)$this->type_id === Flag::MATCH_TYPE_COMPETITION;
     }
 
     public function isVictory()
     {
-        return $this->decision_id === Flag::MATCH_DECISION_VICTORY;
+        return (int)$this->decision_id === Flag::MATCH_DECISION_VICTORY;
     }
 
     public function isDefeat()
     {
-        return $this->decision_id === Flag::MATCH_DECISION_DEFEAT;
+        return (int)$this->decision_id === Flag::MATCH_DECISION_DEFEAT;
     }
 
     public function isDraw()
     {
-        return $this->decision_id === Flag::MATCH_DECISION_DRAW;
+        return (int)$this->decision_id === Flag::MATCH_DECISION_DRAW;
     }
 
     /**

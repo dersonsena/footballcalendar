@@ -23,11 +23,14 @@ $formatter = Yii::$app->formatter;
                 <h2><i class="fa fa-male"></i> Artilharia</h2>
                 <table class="table table-striped table-bordered">
                     <tbody>
+                        <?php $position = 1 ?>
                         <?php foreach ($artillery as $row) : ?>
                             <tr>
+                                <td  class="text-center" style="width: 30px; font-weight: bold"><?= $position ?>º</td>
                                 <td><?= $row['name'] ?></td>
                                 <td class="text-center" style="width: 50px"><?= $row['goals'] ?></td>
                             </tr>
+                            <?php $position++ ?>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
