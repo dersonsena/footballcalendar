@@ -98,7 +98,7 @@ $formatter = Yii::$app->formatter;
                             <td class="text-center" style="width: 50px"><?= $goalsBalance['sum_owner'] ?></td>
                         </tr>
                         <tr class="danger">
-                            <td class="text-right">Gols Pró</td>
+                            <td class="text-right">Gols Contra</td>
                             <td class="text-center" style="width: 50px"><?= $goalsBalance['sum_guest'] ?></td>
                         </tr>
                         <tr>
