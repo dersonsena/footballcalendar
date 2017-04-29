@@ -116,7 +116,7 @@ abstract class BackendController extends ControllerBase
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['login', 'logout', 'forgot', 'renew-password'],
+                        'actions' => ['login', 'logout', 'forgot', 'renew-password', 'matches/default/view'],
                         'roles' => ['?']
                     ]
                 ]
