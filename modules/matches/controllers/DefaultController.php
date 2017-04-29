@@ -10,6 +10,8 @@ use app\modules\matches\models\MatchDatasheet;
 use DateTime;
 use Exception;
 use Yii;
+use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 
 class DefaultController extends BackendController
 {
@@ -17,6 +19,26 @@ class DefaultController extends BackendController
     public $modelSearchClass = 'app\modules\matches\models\search\MatchSearch';
     public $controllerDescription = 'Jogos';
     private $players = [];
+
+    public function behaviors()
+    {
+        return ArrayHelper::merge(parent::behaviors(), [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@']
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['view'],
+                        'roles' => ['?']
+                    ]
+                ]
+            ],
+        ]);
+    }
 
     public function init()
     {
