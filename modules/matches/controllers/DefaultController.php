@@ -22,7 +22,7 @@ class DefaultController extends BackendController
 
     public function behaviors()
     {
-        return ArrayHelper::merge(parent::behaviors(), [
+        return [
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
@@ -37,7 +37,7 @@ class DefaultController extends BackendController
                     ]
                 ]
             ],
-        ]);
+        ];
     }
 
     public function init()
