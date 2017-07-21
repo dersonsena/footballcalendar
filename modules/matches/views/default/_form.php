@@ -20,6 +20,22 @@ MatchesFormAsset::register($this);
 $this->registerJs('
     var dataSheetUpdate = '. Json::encode($model->dataSheet) .'
 ', View::POS_BEGIN);
+
+$this->registerJs('
+    var selectMatchType = document.querySelector("select#match-type_id");
+    var selectCompetition = document.querySelector("select#match-competition_id");
+    var isNewRecord = (document.querySelector("input#match-id").value === "");
+    
+    selectMatchType.onchange = function() {
+        selectCompetition.disabled = (this.value != 13);
+        
+        if (this.value != 13)
+            selectCompetition.value = "";
+    };
+    
+    if (!isNewRecord)
+        $(selectMatchType).trigger("change");
+');
 ?>
 
 <?php $form = ActiveForm::begin(['validateOnBlur' => false]) ?>
