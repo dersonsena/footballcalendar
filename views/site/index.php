@@ -4,16 +4,35 @@
 /* @var array $artillery */
 /* @var array $goalsBalance */
 /* @var \app\modules\matches\models\Match[] $lastMatches */
+/* @var array $years */
+/* @var string $selectedYear  */
 use app\models\Setting;
 use yii\bootstrap\Html;
+use yii\web\View;
 
 $formatter = Yii::$app->formatter;
+
+$this->registerJs('
+    function changeYear(select) {
+        location = baseUrl + "?year=" + select.value;
+    }
+', View::POS_END);
 ?>
 <div class="site-index">
 
     <div class="jumbotron">
         <h1><?= Setting::getSettingByAbbreviation('TEAM_NAME')->value ?></h1>
         <p class="lead">Estatísticas gerais até o último jogo. Data <?= $lastMatches[0]->date ?></p>
+
+        <div class="row">
+            <div class="col-md-2 col-md-offset-5">
+                <label for="year">Ano:</label>
+                <?= Html::dropDownList('years', $selectedYear, $years, [
+                    'class' => 'form-control col-md',
+                    'onchange' => 'changeYear(this)'
+                ]) ?>
+            </div>
+        </div>
     </div>
 
     <div class="body-content">
@@ -25,6 +44,7 @@ $formatter = Yii::$app->formatter;
                     <tbody>
                         <?php $position = 1 ?>
                         <?php foreach ($artillery as $row) : ?>
+                            <?php if (is_null($row['goals'])) continue; ?>
                             <tr>
                                 <td  class="text-center" style="width: 30px; font-weight: bold"><?= $position ?>º</td>
                                 <td><?= $row['name'] ?></td>

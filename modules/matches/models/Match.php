@@ -325,8 +325,9 @@ class Match extends ModelBase
             Flag::MATCH_TYPE_COMPETITION => 'Competição',
         ];
 
-        if (is_null($typeId))
+        if (is_null($typeId)) {
             return $list;
+        }
 
         if (!array_key_exists($typeId, $list)) {
             throw new OutOfBoundsException('Não existe o tipo com ID ' . $typeId);
@@ -335,43 +336,77 @@ class Match extends ModelBase
         return $list[$typeId];
     }
 
-    public static function getArtillery()
+    public static function getArtillery($selectedYear)
     {
         $sql = "
             SELECT p.id, p.name, (
-                SELECT SUM(goals)
-                FROM ". MatchDatasheet::tableName() ." AS md
-                WHERE md.player_id = p.id
-                GROUP BY md.player_id
+               SELECT SUM(`goals`)
+                FROM ". MatchDatasheet::tableName() ." AS `md`
+                INNER JOIN ". Match::tableName() ." AS `m` ON `m`.`id` = `md`.`match_id`
+                    AND YEAR(`m`.`date`) = :selectedYear
+                WHERE `md`.`player_id` = `p`.`id`
+                GROUP BY `md`.`player_id`
             ) AS goals
             FROM ". Player::tableName() ." AS p
             WHERE p.status = 1
             ORDER BY goals DESC, p.name ASC
         ";
 
-        return Yii::$app->db->createCommand($sql)->queryAll();
+        $command = Yii::$app->db->createCommand($sql);
+        $command->bindValue(':selectedYear', $selectedYear);
+
+        return $command->queryAll();
     }
 
-    public static function getGoalsBalance()
+    public static function getGoalsBalance($selectedYear)
     {
         $sql = "
             SELECT 
                 AVG(m.score_owner) AS avg_owner, AVG(m.score_guest) AS avg_guest,
                 SUM(m.score_owner) AS sum_owner, SUM(m.score_guest) AS sum_guest,
                 (SUM(m.score_owner) - SUM(m.score_guest)) AS balance
-            FROM ". Match::tableName() ." AS m
+            FROM ". Match::tableName() ." AS `m`
+            WHERE YEAR(`m`.`date`) = :selectedYear
         ";
 
-        return Yii::$app->db->createCommand($sql)->queryOne();
+        $command = Yii::$app->db->createCommand($sql);
+        $command->bindValue(':selectedYear', $selectedYear);
+
+        return $command->queryOne();
     }
 
-    public static function getLastMatches(int $limit = 10)
+    public static function getLastMatches($selectedYear, int $limit = 10)
     {
         return static::find()
             ->select(['id', 'description', 'date', 'decision_id'])
             ->where(['status_id' => Flag::MATCH_STATUS_FINALIZED])
+            ->andWhere('YEAR(date) = :selectedYear', [':selectedYear' => $selectedYear])
             ->orderBy('date DESC, created_at DESC')
             ->limit($limit)
             ->all();
+    }
+
+    public static function getYearsGrouped()
+    {
+        $sql = "
+            SELECT `ano` FROM (
+                SELECT
+                YEAR(`date`) as `ano` 
+                FROM `matches` 
+                UNION ALL
+                SELECT YEAR(NOW()) as `ano`
+            ) AS `t`
+            GROUP BY `ano`
+            ORDER BY `ano` DESC
+        ";
+
+        $years = [];
+        $rows = Yii::$app->db->createCommand($sql)->queryAll();
+
+        foreach ($rows as $row) {
+            $years[$row['ano']] = $row['ano'];
+        }
+
+        return $years;
     }
 }

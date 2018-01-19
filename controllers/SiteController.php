@@ -17,11 +17,14 @@ class SiteController extends ControllerBase
     public function actionIndex()
     {
         $this->controllerDescription = 'Estatísticas';
+        $selectedYear = $this->getRequest()->get('year', date('Y'));
 
         return $this->render('index', [
-            'artillery' => Match::getArtillery(),
-            'goalsBalance' => Match::getGoalsBalance(),
-            'lastMatches' => Match::getLastMatches()
+            'artillery' => Match::getArtillery($selectedYear),
+            'goalsBalance' => Match::getGoalsBalance($selectedYear),
+            'lastMatches' => Match::getLastMatches($selectedYear),
+            'years' => Match::getYearsGrouped(),
+            'selectedYear' => $selectedYear
         ]);
     }
 
@@ -32,13 +35,15 @@ class SiteController extends ControllerBase
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest)
+        if (!Yii::$app->user->isGuest) {
             return $this->goHome();
+        }
 
         $model = new LoginForm;
 
-        if ($model->load(Yii::$app->request->post()) && $model->login())
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
+        }
 
         return $this->render('login', [
             'model' => $model,

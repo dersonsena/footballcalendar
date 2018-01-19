@@ -29,12 +29,14 @@ $this->registerJs('
     selectMatchType.onchange = function() {
         selectCompetition.disabled = (this.value != 13);
         
-        if (this.value != 13)
+        if (this.value != 13) {
             selectCompetition.value = "";
+        }    
     };
     
-    if (!isNewRecord)
+    if (!isNewRecord) {
         $(selectMatchType).trigger("change");
+    }
 ');
 ?>
 
