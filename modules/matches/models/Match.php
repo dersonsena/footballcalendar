@@ -355,7 +355,11 @@ class Match extends ModelBase
         $command = Yii::$app->db->createCommand($sql);
         $command->bindValue(':selectedYear', $selectedYear);
 
-        return $command->queryAll();
+        $rows = $command->queryAll();
+
+        return array_filter($rows, function ($row) {
+            return !is_null($row['goals']);
+        });
     }
 
     public static function getGoalsBalance($selectedYear)
