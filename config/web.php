@@ -1,6 +1,11 @@
 <?php
 
 $params = require(__DIR__ . '/params.php');
+$db = require(__DIR__ . '/db.php');
+
+if (YII_ENV_PROD) {
+    $db = require(__DIR__ . '/db_prod.php');
+}
 
 $config = [
     'id' => 'basic',
@@ -63,7 +68,7 @@ $config = [
                 ],
             ],
         ],
-        'db' => require(__DIR__ . '/db.php'),
+        'db' => $db,
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
