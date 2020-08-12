@@ -32,8 +32,7 @@ class m160716_192218_create_users extends Migration
         $this->insert("{{%users}}", [
             'group_id' => 1,
             'name' => 'Administrador',
-            'email' => '
-            ',
+            'email' => 'admin@futsalcalendar.com.br',
             'password' => Yii::$app->security->generatePasswordHash($_ENV['ADMIN_PASSWORD']),
             'auth_key' => Yii::$app->security->generateRandomString(),
             'created_at' => $now->format('Y-m-d H:i:s'),
