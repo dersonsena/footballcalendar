@@ -17,13 +17,14 @@
         "php": ">=7",
         "ext-intl" : "*",
         "ext-mbstring" : "*",
-        "yiisoft/yii2": "~2.0.5",
+        "yiisoft/yii2": "~2.0.14",
         "yiisoft/yii2-bootstrap": "~2.0.0",
-        "yiisoft/yii2-swiftmailer": "~2.0.0",
+        "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
         "kartik-v/yii2-widget-growl": "*",
         "kartik-v/yii2-widget-activeform": "^1.4",
         "kartik-v/yii2-widget-datepicker": "@dev",
-        "bower-asset/components-font-awesome": "*"
+        "bower-asset/components-font-awesome": "~4",
+        "vlucas/phpdotenv": "^5.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
@@ -35,11 +36,19 @@
         "codeception/specify": "~0.4.3"
     },
     "config": {
-        "process-timeout": 1800
+        "process-timeout": 1800,
+        "fxp-asset": {
+            "enabled": false
+        }
     },
     "scripts": {
+        "post-install-cmd": [
+            "yii\\composer\\Installer::postInstall"
+        ],
         "post-create-project-cmd": [
-            "yii\\composer\\Installer::postCreateProject"
+            "yii\\composer\\Installer::postCreateProject",
+            "yii\\composer\\Installer::postInstall",
+            "@php -r \"file_exists('.env') || copy('.env.sample', '.env');\""
         ]
     },
     "extra": {
@@ -50,14 +59,14 @@
                     "web/assets": "0777",
                     "yii": "0755"
                 }
-            ],
-            "generateCookieValidationKey": [
-                "config/web.php"
             ]
-        },
-        "asset-installer-paths": {
-            "npm-asset-library": "vendor/npm",
-            "bower-asset-library": "vendor/bower"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "prefer-stable": true
 }

@@ -13,8 +13,8 @@ use yii\web\ForbiddenHttpException;
 
 class GroupsController extends BackendController
 {
-    public $modelClass = 'backend\modules\user\models\Group';
-    public $modelSearchClass = 'backend\modules\user\models\search\GroupSearch';
+    public $modelClass = 'app\modules\user\models\Group';
+    public $modelSearchClass = 'app\modules\user\models\search\GroupSearch';
     public $controllerDescription = 'Grupos de Usuário';
 
     public function behaviors()

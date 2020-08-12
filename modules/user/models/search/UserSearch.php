@@ -1,9 +1,9 @@
 <?php
 
-namespace backend\modules\user\models\search;
+namespace app\modules\user\models\search;
 
 use Yii;
-use backend\modules\user\models\User;
+use app\modules\user\models\User;
 use yii\data\ActiveDataProvider;
 use yii\db\Query;
 

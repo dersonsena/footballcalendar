@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\modules\user\controllers;
+namespace app\modules\user\controllers;
 
 use app\components\controllers\BackendController;
 use app\modules\user\forms\ChangePasswordForm;
@@ -10,8 +10,8 @@ use Yii;
 
 class DefaultController extends BackendController
 {
-    public $modelClass = 'backend\modules\user\models\User';
-    public $modelSearchClass = 'backend\modules\user\models\search\UserSearch';
+    public $modelClass = 'app\modules\user\models\User';
+    public $modelSearchClass = 'app\modules\user\models\search\UserSearch';
     public $controllerDescription = 'Usuários';
     protected $createScenario = 'create';
 

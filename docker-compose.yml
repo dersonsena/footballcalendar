@@ -1,0 +1,42 @@
+version: '3'
+services:
+  app:
+    container_name: ${PROJECT_NAME}-app
+    image: webdevops/php-nginx-dev:7.3
+    working_dir: /var/www/app
+    volumes:
+      - ./:/var/www/app
+    environment:
+      - WEB_DOCUMENT_ROOT=/var/www/app/web
+      - WEB_DOCUMENT_INDEX=index.php
+      - PHP_MAX_EXECUTION_TIME=86400
+      - PHP_DEBUGGER=xdebug
+      - XDEBUG_REMOTE_PORT=${XDEBUG_REMOTE_PORT}
+      - XDEBUG_REMOTE_AUTOSTART=1
+      - XDEBUG_REMOTE_CONNECT_BACK=off
+      - XDEBUG_REMOTE_HOST=${XDEBUG_REMOTE_HOST}
+    ports:
+      - '${DOCKER_APP_PORT}:80'
+    networks:
+      - americafc-network
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    container_name: ${PROJECT_NAME}-db
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - "${DOCKER_MYSQL_PORT}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+    networks:
+      - americafc-network
+    volumes:
+      - ./.docker/data:/var/lib/mysql
+
+networks:
+  americafc-network:
+    driver: bridge

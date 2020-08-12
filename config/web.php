@@ -3,18 +3,15 @@
 $params = require(__DIR__ . '/params.php');
 $db = require(__DIR__ . '/db.php');
 
-if (YII_ENV_PROD) {
-    $db = require(__DIR__ . '/db_prod.php');
-}
-
 $config = [
     'id' => 'basic',
-    'name' => 'Futsal Calendar',
+    'name' => 'América FC',
     'language' => 'pt-BR',
     'timeZone' => 'America/Fortaleza',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
+        '@bower' => '@vendor/bower-asset',
         '@entries' => '@app/modules/entries',
         '@user' => '@app/modules/users',
         '@appModule' => '@app/modules/app',
@@ -48,9 +45,6 @@ $config = [
         'user' => [
             'identityClass' => 'app\modules\user\models\User',
             'enableAutoLogin' => true,
-        ],
-        'session' => [
-            'savePath' => '@runtime/session'
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

@@ -8,8 +8,9 @@ class m160716_192218_create_users extends Migration
     {
         $tableOptions = null;
 
-        if ($this->db->driverName === 'mysql')
+        if ($this->db->driverName === 'mysql') {
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+        }
 
         $this->createTable('{{%users}}', [
             'id' => $this->primaryKey(),
@@ -31,8 +32,9 @@ class m160716_192218_create_users extends Migration
         $this->insert("{{%users}}", [
             'group_id' => 1,
             'name' => 'Administrador',
-            'email' => 'admin@futsalcalendar.com.br',
-            'password' => Yii::$app->security->generatePasswordHash('123456'),
+            'email' => '
+            ',
+            'password' => Yii::$app->security->generatePasswordHash($_ENV['ADMIN_PASSWORD']),
             'auth_key' => Yii::$app->security->generateRandomString(),
             'created_at' => $now->format('Y-m-d H:i:s'),
             'updated_at' => $now->format('Y-m-d H:i:s')
